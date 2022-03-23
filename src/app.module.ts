@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JobsModule } from './jobs/jobs.module';
+import { EmojisModule } from './emoji/emojis.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
@@ -11,7 +11,7 @@ import { configValidationSchema } from './config.schema';
       envFilePath: [`.env`],
       validationSchema: configValidationSchema,
     }),
-    JobsModule,
+    EmojisModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

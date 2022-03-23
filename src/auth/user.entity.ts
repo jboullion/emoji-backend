@@ -1,9 +1,7 @@
-import { Job } from '../jobs/job.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -14,11 +12,27 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
+  // Publicly referenced ID
+  @Column()
+  uuid: string;
+
   @Column({ unique: true })
   email: string;
 
+  @Column({ unique: true })
+  username: string;
+
   @Column()
   password: string;
+
+  @Column()
+  tickets: number;
+
+  @Column()
+  premium_tickets: number;
+
+  @Column()
+  premium: boolean;
 
   @Column({ nullable: true })
   refreshToken: string;
@@ -29,9 +43,6 @@ export class User {
 
   @Column({ default: UserStatus.UNACTIVATED })
   status: UserStatus;
-
-  @OneToMany((_type) => Job, (job) => job.user, { eager: true })
-  jobs: Job[];
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

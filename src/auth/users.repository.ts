@@ -48,34 +48,35 @@ export class UsersRepository extends Repository<User> {
     return user;
   }
 
-  //   async getJobs(filterDto: GetJobsFilterDto): Promise<Job[]> {
+  // ! NOTE: leaving here as an example of how to talk with other repositories
+  //   async getEmojis(filterDto: GetEmojisFilterDto): Promise<Emoji[]> {
   //     const { search, status } = filterDto;
-  //     const query = this.createQueryBuilder('job');
+  //     const query = this.createQueryBuilder('emoji');
   //     if (status) {
-  //       query.andWhere('job.status = :status', { status });
+  //       query.andWhere('emoji.status = :status', { status });
   //     }
   //     if (search) {
   //       // NOTE: For case insensative queries you can use ILIKE
   //       // NOTE: For improved performance creating an index on idx_title = LOWER(title)  can be helpful
   //       query.andWhere(
-  //         'LOWER(job.title) LIKE :search OR LOWER(job.description) LIKE :search',
+  //         'LOWER(emoji.title) LIKE :search OR LOWER(emoji.description) LIKE :search',
   //         { search: `%${search.toLowerCase()}%` },
   //       );
   //     }
-  //     const jobs = await query.getMany();
-  //     return jobs;
+  //     const emojis = await query.getMany();
+  //     return emojis;
   //   }
-  //   async createJob(createJobDto: CreateJobDto): Promise<Job> {
-  //     const { title, description } = createJobDto;
-  //     const job = this.create({
+  //   async createEmoji(createEmojiDto: CreateEmojiDto): Promise<Emoji> {
+  //     const { title, description } = createEmojiDto;
+  //     const emoji = this.create({
   //       title,
   //       description,
-  //       status: JobStatus.OPEN,
+  //       status: EmojiStatus.OPEN,
   //     });
-  //     await this.save(job);
-  //     return job;
+  //     await this.save(emoji);
+  //     return emoji;
   //   }
-  //   async deleteJob(id: string): Promise<DeleteResult> {
+  //   async deleteEmoji(id: string): Promise<DeleteResult> {
   //     return await this.delete(id);
   //   }
 }
