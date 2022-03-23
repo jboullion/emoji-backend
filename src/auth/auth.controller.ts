@@ -1,6 +1,7 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { AuthLoginDto } from './dto/auth-login.dto';
+import { AuthCreateDto } from './dto/auth-create.dto';
 import { AuthRefreshDto } from './dto/auth-refresh.dto';
 import { User } from './user.entity';
 import { Logger } from '@nestjs/common';
@@ -12,13 +13,13 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Post('/signup')
-  signUp(@Body() authCredentialsDto: AuthCredentialsDto): Promise<User> {
+  signUp(@Body() authCredentialsDto: AuthCreateDto): Promise<User> {
     return this.authService.signUp(authCredentialsDto);
   }
 
   @Post('/signin')
   signIn(
-    @Body() authCredentialsDto: AuthCredentialsDto,
+    @Body() authCredentialsDto: AuthLoginDto,
   ): Promise<{ accessToken: string; refreshToken: string }> {
     return this.authService.signIn(authCredentialsDto);
   }

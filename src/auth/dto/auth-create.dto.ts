@@ -6,7 +6,17 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class AuthCredentialsDto {
+export class AuthCreateDto {
+  // TODO: Should we just generate a random name for a user? This feels like added friction
+  @IsString()
+  @MinLength(8, {
+    message: 'Username must be at least 3 characters long',
+  })
+  @MaxLength(20, {
+    message: 'Username must be no more than 20 characters long',
+  })
+  username: string;
+
   @IsEmail()
   email: string;
 

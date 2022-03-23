@@ -1,0 +1,19 @@
+1. Test Custom users
+
+2. Look into google auth 
+    https://dev.to/imichaelowolabi/how-to-implement-login-with-google-in-nest-js-2aoa
+
+3. Twitch login and possiblt JWT implementation
+    https://medium.com/neo4j/authentication-in-a-nest-js-application-with-neo4j-31beb416538
+
+
+4. Profile Page
+  - Update Username
+  - Update Emoji Avatar
+  - Track tickets
+  - Track Premium + Premium tickets
+  - 
+
+
+MVP AT THIS POINT!!!!
+If we can get the above done we will have basically every part of the puzzle. Or at least the outer most pieces. The rest should fall into place pretty quickly

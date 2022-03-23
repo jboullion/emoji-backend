@@ -4,10 +4,11 @@ import {
   Logger,
 } from '@nestjs/common';
 import { DeleteResult, EntityRepository, Repository } from 'typeorm';
-import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+import { AuthCreateDto } from './dto/auth-create.dto';
 import { UserStatus } from './user-status.enum';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
+import { randomUUID } from 'crypto';
 
 enum UserRepoErrorCodes {
   EMAIL_EXISTS = '23505',
@@ -17,13 +18,17 @@ enum UserRepoErrorCodes {
 export class UsersRepository extends Repository<User> {
   private logger = new Logger('UsersRepository', { timestamp: true });
 
-  async createUser(authCredentialsDto: AuthCredentialsDto): Promise<User> {
-    const { email, password } = authCredentialsDto;
+  async createUser(authCredentialsDto: AuthCreateDto): Promise<User> {
+    const { username, email, password } = authCredentialsDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    const uuid = randomUUID();
+
     const user = this.create({
+      uuid,
+      username,
       email,
       password: hashedPassword,
       status: UserStatus.UNACTIVATED,

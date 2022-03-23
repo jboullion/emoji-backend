@@ -25,13 +25,13 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ default: 0 })
   tickets: number;
 
-  @Column()
+  @Column({ default: 0 })
   premium_tickets: number;
 
-  @Column()
+  @Column({ default: 0 })
   premium: boolean;
 
   @Column({ nullable: true })
