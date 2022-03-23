@@ -14,16 +14,4 @@ export class EmojisService {
   async getEmojis(filterDto: GetEmojisFilterDto): Promise<Emoji[]> {
     return await this.emojisRepository.getEmojis(filterDto);
   }
-
-  async getEmojiByIcon(icon: string): Promise<Emoji> {
-    const emoji = await this.emojisRepository.findOne({
-      icon: icon,
-    });
-
-    if (!emoji) {
-      throw new NotFoundException(`Emoji ${icon} not found`);
-    }
-
-    return emoji;
-  }
 }

@@ -9,13 +9,13 @@ const mockEmojisRepository = () => ({
   findOne: jest.fn(),
 });
 
-const mockEmoji: Emoji = {
-  id: 10,
-  icon: '👩🏾‍❤️‍👩🏾',
-  parent_cat: 'people',
-  child_cat: 'heart',
-  short_name: 'couple with heart: woman, medium-dark skin tone',
-};
+// const mockEmoji: Emoji = {
+//   id: 10,
+//   icon: '👩🏾‍❤️‍👩🏾',
+//   parent_cat: 'people',
+//   child_cat: 'heart',
+//   short_name: 'couple with heart: woman, medium-dark skin tone',
+// };
 
 describe('EmojiService', () => {
   let emojisService: EmojisService;
@@ -43,23 +43,6 @@ describe('EmojiService', () => {
       const result = await emojisService.getEmojis(null);
 
       expect(result).toEqual('someValue');
-    });
-  });
-
-  describe('getEmojiByIcon', () => {
-    it('calls EmojiRepository.findOne and return a emoji', async () => {
-      emojisRepository.findOne.mockResolvedValue(mockEmoji);
-      const result = await emojisService.getEmojiByIcon('👩🏾‍❤️‍👩🏾');
-
-      expect(result).toEqual(mockEmoji);
-    });
-
-    it('calls EmojiRepository.findOne and throws an error', async () => {
-      emojisRepository.findOne.mockResolvedValue(null);
-
-      expect(emojisService.getEmojiByIcon('👩🏾‍❤️‍👩🏾')).rejects.toThrow(
-        NotFoundException,
-      );
     });
   });
 });

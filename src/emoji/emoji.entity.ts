@@ -9,9 +9,11 @@ export class Emoji {
   @Column()
   icon: string;
 
+  // ? These could probably be ENUMS
   @Column()
   parent_cat: string;
 
+  // ? These could probably be ENUMS
   @Column()
   child_cat: string;
 

@@ -7,14 +7,9 @@ import { Logger } from '@nestjs/common';
 
 @Controller('emojis')
 export class EmojisController {
-  private logger = new Logger('EmojisController', { timestamp: true });
+  //private logger = new Logger('EmojisController', { timestamp: true });
 
   constructor(private emojisService: EmojisService) {}
-
-  @Get('/:icon')
-  async getEmojiByIcon(@Param('icon') icon: string): Promise<Emoji> {
-    return await this.emojisService.getEmojiByIcon(icon);
-  }
 
   @Get()
   async getEmojis(@Query() filterDto: GetEmojisFilterDto): Promise<Emoji[]> {
