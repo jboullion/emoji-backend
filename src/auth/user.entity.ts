@@ -25,6 +25,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: '😶' })
+  avatar: string;
+
   @Column({ default: 0 })
   tickets: number;
 

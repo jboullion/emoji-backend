@@ -9,7 +9,7 @@ import {
 export class AuthCreateDto {
   // TODO: Should we just generate a random name for a user? This feels like added friction
   @IsString()
-  @MinLength(8, {
+  @MinLength(3, {
     message: 'Username must be at least 3 characters long',
   })
   @MaxLength(20, {
