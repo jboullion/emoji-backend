@@ -28,7 +28,7 @@ export class AuthService {
     const user = await this.usersRepository.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      return await this.generateTokens(email, user);
+      return await this.generateTokens(user);
     }
 
     throw new UnauthorizedException('Please check login credentials');
@@ -42,14 +42,19 @@ export class AuthService {
     const user = await this.usersRepository.findOne({ email, refreshToken });
 
     if (user && new Date() < new Date(user.refreshTokenExpires)) {
-      return await this.generateTokens(email, user);
+      return await this.generateTokens(user);
     }
 
     throw new UnauthorizedException('Please check login credentials');
   }
 
-  async generateTokens(email: string, user: User) {
-    const payload: JwtPayload = { email, avatar: user.avatar };
+  async generateTokens(user: User) {
+    const payload: JwtPayload = {
+      uuid: user.uuid,
+      username: user.username,
+      email: user.email,
+      avatar: user.avatar,
+    };
     const accessToken: string = this.jwtService.sign(payload);
     const refreshToken: string = await this.generateRefreshToken(user.id);
     return { accessToken, refreshToken };

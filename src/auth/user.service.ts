@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { UpdateUserDto } from './dto/user-update-dto';
 import { User } from './user.entity';
 import { UsersRepository } from './users.repository';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -31,6 +37,16 @@ export class UserService {
     }
 
     return user;
+  }
+
+  async updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const user = await this.getUserById(uuid);
+
+    if (user && (await bcrypt.compare(updateUserDto.password, user.password))) {
+      return await this.usersRepository.updateUser(user, updateUserDto);
+    }
+
+    throw new UnauthorizedException('Please check credentials');
   }
 
   async updateAvatar(emoji: string, user: User): Promise<string> {

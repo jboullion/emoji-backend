@@ -9,6 +9,9 @@ import { UserStatus } from './user-status.enum';
 import { User } from './user.entity';
 import * as bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
+import { title } from 'process';
+import { zip } from 'rxjs';
+import { UpdateUserDto } from './dto/user-update-dto';
 
 enum UserRepoErrorCodes {
   EMAIL_EXISTS = '23505',
@@ -49,6 +52,26 @@ export class UsersRepository extends Repository<User> {
         throw new InternalServerErrorException();
       }
     }
+
+    return user;
+  }
+
+  async updateUser(user: User, updateUserDto: UpdateUserDto): Promise<User> {
+    const { username, email, passwordNew } = updateUserDto;
+    if (username) {
+      user.username = username;
+    }
+
+    if (email) {
+      user.email = email;
+    }
+
+    if (passwordNew) {
+      const salt = await bcrypt.genSalt();
+      user.password = await bcrypt.hash(passwordNew, salt);
+    }
+
+    await this.save(user);
 
     return user;
   }
