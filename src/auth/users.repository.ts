@@ -53,6 +53,14 @@ export class UsersRepository extends Repository<User> {
     return user;
   }
 
+  async updateAvatar(emoji: string, user: User): Promise<string> {
+    user.avatar = emoji;
+
+    await this.save(user);
+
+    return user.avatar;
+  }
+
   // ! NOTE: leaving here as an example of how to talk with other repositories
   //   async getEmojis(filterDto: GetEmojisFilterDto): Promise<Emoji[]> {
   //     const { search, status } = filterDto;
