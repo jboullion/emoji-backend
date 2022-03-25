@@ -5,6 +5,7 @@ import {
   Matches,
   MaxLength,
   MinLength,
+  IsNotEmpty,
 } from 'class-validator';
 
 export class UpdateUserDto {
@@ -27,9 +28,9 @@ export class UpdateUserDto {
   @MaxLength(32, {
     message: 'Password must be no more than 32 characters long',
   })
-  @Matches(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message:
-      'Password requires as least 1 uppercase, 1 lowercase, and 1 number',
-  })
+  // @Matches(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+  //   message:
+  //     'Password requires as least 1 uppercase, 1 lowercase, and 1 number',
+  // })
   passwordNew?: string;
 }

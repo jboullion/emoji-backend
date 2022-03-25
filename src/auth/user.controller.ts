@@ -36,6 +36,7 @@ export class UserController {
     this.logger.verbose(
       `Update User: ${params.uuid} ${JSON.stringify(params.uuid)}`,
     );
+
     return await this.userService.updateUser(params.uuid, updateUserDto);
     //return await this.userService.getUserByEmail(query.email);
   }
