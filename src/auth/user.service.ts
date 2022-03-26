@@ -39,9 +39,7 @@ export class UserService {
     return user;
   }
 
-  async updateUser(uuid: string, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.getUserById(uuid);
-
+  async updateUser(user: User, updateUserDto: UpdateUserDto): Promise<User> {
     if (user && (await bcrypt.compare(updateUserDto.password, user.password))) {
       return await this.usersRepository.updateUser(user, updateUserDto);
     }

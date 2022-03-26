@@ -27,23 +27,23 @@ export class UserController {
   //   return await this.userService.getUserById(uuid);
   // }
 
-  @Patch(':uuid')
-  async updateUser(
-    @Param() params: { uuid: string },
-    @Body() updateUserDto: UpdateUserDto,
-    // @GetUser() user: User,
-  ): Promise<User> {
-    this.logger.verbose(
-      `Update User: ${params.uuid} ${JSON.stringify(params.uuid)}`,
-    );
-
-    return await this.userService.updateUser(params.uuid, updateUserDto);
-    //return await this.userService.getUserByEmail(query.email);
-  }
-
   @Get('/search')
   async getUserByEmail(@Query() query: { email: string }): Promise<User> {
     return await this.userService.getUserByEmail(query.email);
+  }
+
+  @Patch('/update')
+  async updateUser(
+    //@Param() params: { uuid: string },
+    @Body() updateUserDto: UpdateUserDto,
+    @GetUser() user: User,
+  ): Promise<User> {
+    // this.logger.verbose(
+    //   `Update User: ${params.uuid} ${JSON.stringify(params.uuid)}`,
+    // );
+
+    return await this.userService.updateUser(user, updateUserDto);
+    //return await this.userService.updateUser(params.uuid, updateUserDto);
   }
 
   @Patch('/avatar')
