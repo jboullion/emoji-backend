@@ -50,4 +50,8 @@ export class UserService {
   async updateAvatar(emoji: string, user: User): Promise<string> {
     return await this.usersRepository.updateAvatar(emoji, user);
   }
+
+  async updateTickets(tickets: number, user: User): Promise<number> {
+    return await this, this.usersRepository.updateTickets(tickets, user);
+  }
 }

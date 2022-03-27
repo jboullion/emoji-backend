@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -21,11 +22,10 @@ export class UserController {
 
   constructor(private userService: UserService) {}
 
-  // @Get('/:uuid')
-  // async getUserByUUID(@Param('uuid') uuid: string): Promise<User> {
-  //   this.logger.verbose(`Searching for user by ${uuid}`);
-  //   return await this.userService.getUserById(uuid);
-  // }
+  @Get()
+  async getUser(@GetUser() user: User): Promise<User> {
+    return user;
+  }
 
   @Get('/search')
   async getUserByEmail(@Query() query: { email: string }): Promise<User> {
@@ -48,9 +48,22 @@ export class UserController {
 
   @Patch('/avatar')
   updateAvatar(
-    @Body() body: { emoji: string },
+    @Body() dto: { emoji: string },
     @GetUser() user: User,
   ): Promise<string> {
-    return this.userService.updateAvatar(body.emoji, user);
+    return this.userService.updateAvatar(dto.emoji, user);
+  }
+
+  @Patch('/tickets')
+  updateTickets(
+    @Body() dto: { tickets: number },
+    @GetUser() user: User,
+  ): Promise<number> {
+    // TODO: Prevent users sending fake API requests to increase their ticket count...somehow.
+    if (isNaN(dto.tickets) || dto.tickets > 100) {
+      throw new BadRequestException('Ticket value must be a number');
+    }
+
+    return this.userService.updateTickets(Number(dto.tickets), user);
   }
 }

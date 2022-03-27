@@ -55,6 +55,7 @@ export class AuthService {
       email: user.email,
       avatar: user.avatar,
     };
+
     const accessToken: string = this.jwtService.sign(payload);
     const refreshToken: string = await this.generateRefreshToken(user.id);
     return { accessToken, refreshToken };

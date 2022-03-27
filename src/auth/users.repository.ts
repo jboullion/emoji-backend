@@ -71,7 +71,23 @@ export class UsersRepository extends Repository<User> {
       user.password = await bcrypt.hash(passwordNew, salt);
     }
 
-    await this.save(user);
+    try {
+      await this.save(user);
+    } catch (error) {
+      if (error.code === UserRepoErrorCodes.EMAIL_EXISTS) {
+        throw new ConflictException('Email already in use');
+      } else {
+        this.logger.error(
+          `updateUser failed for user ${
+            user.email
+          }. Credentials: ${JSON.stringify({
+            updateUserDto,
+          })}`,
+          error.stack,
+        );
+        throw new InternalServerErrorException();
+      }
+    }
 
     return user;
   }
@@ -79,9 +95,54 @@ export class UsersRepository extends Repository<User> {
   async updateAvatar(emoji: string, user: User): Promise<string> {
     user.avatar = emoji;
 
-    await this.save(user);
+    try {
+      await this.save(user);
+    } catch (error) {
+      // if (error.code === UserRepoErrorCodes.EMAIL_EXISTS) {
+      //   throw new ConflictException('Email already in use');
+      // } else {
+      this.logger.error(
+        `updateAvatar failed for user ${
+          user.email
+        }. Credentials: ${JSON.stringify({
+          emoji,
+        })}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException();
+      //}
+    }
 
     return user.avatar;
+  }
+
+  async updateTickets(tickets: number, user: User) {
+    user.tickets += tickets;
+
+    // Setting a hard cap on the number tickets a user can have at a time, for now.
+    if (user.tickets > 9999) {
+      user.tickets = 9999;
+    }
+
+    try {
+      await this.save(user);
+    } catch (error) {
+      // if (error.code === UserRepoErrorCodes.EMAIL_EXISTS) {
+      //   throw new ConflictException('Email already in use');
+      // } else {
+      this.logger.error(
+        `updateTickets failed for user ${
+          user.email
+        }. Credentials: ${JSON.stringify({
+          tickets,
+        })}`,
+        error.stack,
+      );
+      throw new InternalServerErrorException();
+      //}
+    }
+
+    return user.tickets;
   }
 
   // ! NOTE: leaving here as an example of how to talk with other repositories
