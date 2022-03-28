@@ -40,5 +40,3 @@ lerna-debug.log*
 .env.*
 
 
-# Client Dist Folder
-client

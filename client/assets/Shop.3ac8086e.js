@@ -1,0 +1,1 @@
+import{T as e}from"./Title.d051302b.js";import{d as t,c as o,g as s,o as a}from"./vendor.22e69707.js";import"./index.10d21fa2.js";const c={id:"shop",class:"page"},m=t({setup(p){return(r,i)=>(a(),o("div",c,[s(e,{title:"Shop",subtitle:"Spend Tickets! Have Fun!"})]))}});export{m as default};
