@@ -20,9 +20,9 @@ export class MemoryGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('MemoryGateway');
 
-  @SubscribeMessage('msgToServer')
+  @SubscribeMessage('sendMessage')
   handleMessage(client: Socket, payload: string): void {
-    this.server.emit('msgToClient', payload);
+    this.server.emit('broadcastMessage', payload);
   }
 
   afterInit(server: Server) {
