@@ -7,7 +7,7 @@ import { UserModule } from './auth/user.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 
 // TODO: Can we setup a "GamesModule" to import all games in one call?
-import { MemoryModule } from './games/memory/memory.module';
+import { ChatModule } from './games/chat/chat.module';
 import { join } from 'path';
 
 @Module({
@@ -20,7 +20,7 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'client'),
     }),
     UserModule,
-    MemoryModule,
+    ChatModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
