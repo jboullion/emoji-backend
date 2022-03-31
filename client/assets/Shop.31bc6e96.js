@@ -1,0 +1,1 @@
+import{C as e}from"./CommonTitle.0ef6a827.js";import{d as t,o,c as s,g as a}from"./vendor.d86d1c24.js";import"./index.fd6633af.js";const c={id:"shop",class:"page"},l=t({setup(n){return(p,r)=>(o(),s("div",c,[a(e,{title:"Shop",subtitle:"Spend Tickets! Have Fun!"})]))}});export{l as default};
