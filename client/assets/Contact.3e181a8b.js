@@ -1,0 +1,1 @@
+import{T as t}from"./Title.c3de74d2.js";import{d as e,o,c as a,g as c}from"./vendor.e42f0259.js";import"./index.0bf825a6.js";const s={id:"contact",class:"page"},d=e({setup(r){return(n,i)=>(o(),a("div",s,[c(t,{title:"Contact"})]))}});export{d as default};

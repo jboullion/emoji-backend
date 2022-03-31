@@ -4,6 +4,11 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configValidationSchema } from './config.schema';
 import { UserModule } from './auth/user.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
+// TODO: Can we setup a "GamesModule" to import all games in one call?
+import { ChatModule } from './games/chat/chat.module';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -11,7 +16,11 @@ import { UserModule } from './auth/user.module';
       envFilePath: [`.env`],
       validationSchema: configValidationSchema,
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'client'),
+    }),
     UserModule,
+    ChatModule,
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

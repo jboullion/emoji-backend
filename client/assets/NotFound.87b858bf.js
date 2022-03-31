@@ -1,0 +1,1 @@
+import{T as e}from"./Title.608e70fc.js";import{d as o,c as t,g as r,o as s}from"./vendor.1d2f60e7.js";import"./index.11f52fc9.js";const a={id:"error",class:"page"},_=o({setup(c){return(n,i)=>(s(),t("div",a,[r(e,{title:"Not Found"})]))}});export{_ as default};

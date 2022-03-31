@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "heroku:build": "git push -f heroku HEAD:master"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -27,7 +28,10 @@
     "@nestjs/jwt": "^8.0.0",
     "@nestjs/passport": "^8.0.1",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/platform-socket.io": "^8.4.3",
+    "@nestjs/serve-static": "^2.2.2",
     "@nestjs/typeorm": "^8.0.2",
+    "@nestjs/websockets": "^8.4.3",
     "@types/passport-jwt": "^3.0.6",
     "bcrypt": "^5.0.1",
     "class-transformer": "^0.4.0",
