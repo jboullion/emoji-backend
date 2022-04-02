@@ -8,21 +8,33 @@ import { UpdateUserDto } from './dto/user-update-dto';
 import { User } from './user.entity';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
+import Hashids from 'hashids';
 
 @Injectable()
 export class UserService {
+  private hashids = new Hashids('UnguessableSalt4evr');
+
   constructor(
     @InjectRepository(UsersRepository) private usersRepository: UsersRepository,
   ) {}
 
   async getUserById(uuid: string): Promise<User> {
+    // Instead of a uuid, we may instead want a hashedID.
+    // https://github.com/niieani/hashids.js
+    //const userID = hashids.decode(publicid); //
     const user = await this.usersRepository.findOne({
       uuid: uuid,
+      //id: userID
     });
 
     if (!user) {
       throw new NotFoundException(`User ${uuid} not found`);
     }
+
+    // Instead of a uuid, we may instead want a hashedID.
+    // https://github.com/niieani/hashids.js
+    // const hashedID = this.hashids.encode(user.id);
+    // user.id = hashedID
 
     return user;
   }

@@ -12,6 +12,7 @@ import { randomUUID } from 'crypto';
 import { title } from 'process';
 import { zip } from 'rxjs';
 import { UpdateUserDto } from './dto/user-update-dto';
+import Hashids from 'hashids';
 
 enum UserRepoErrorCodes {
   EMAIL_EXISTS = '23505',
@@ -22,11 +23,15 @@ export class UsersRepository extends Repository<User> {
   private logger = new Logger('UsersRepository', { timestamp: true });
 
   async createUser(authCredentialsDto: AuthCreateDto): Promise<User> {
+    const hashids = new Hashids();
+
     const { username, email, password } = authCredentialsDto;
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Instead of a uuid, we may instead want a hashedID.
+    // https://github.com/niieani/hashids.js
     const uuid = randomUUID();
 
     const user = this.create({
