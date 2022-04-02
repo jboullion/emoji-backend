@@ -1,17 +1,23 @@
 export type ChatMessageDTO = {
   avatar: string;
   text: string;
-  userID: string;
+  clientID: string;
   roomID: string;
 };
 
-export type JoinRoomDTO = {
+export type ChangeRoomDTO = {
   join?: string;
-  avatar: string;
   leave?: string;
+  avatar: string;
 };
 
-export type RoomPayload = {
+export type RoomUser = {
   username: string;
-  userID: string;
+  clientID: string;
+  roomID: string;
+};
+
+export type Room = {
+  name: string;
+  users: RoomUser[];
 };

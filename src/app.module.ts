@@ -9,6 +9,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 // TODO: Can we setup a "GamesModule" to import all games in one call?
 import { ChatModule } from './games/chat/chat.module';
 import { join } from 'path';
+import { ItemsModule } from './items/items.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { join } from 'path';
       },
     }),
     AuthModule,
+    ItemsModule,
   ],
 })
 export class AppModule {}

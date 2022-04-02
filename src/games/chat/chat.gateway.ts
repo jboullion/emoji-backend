@@ -10,7 +10,7 @@ import {
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
-import { ChatMessageDTO, JoinRoomDTO, RoomPayload } from './dto/chat-dtos';
+import { ChatMessageDTO, ChangeRoomDTO, RoomUser } from './dto/chat-dtos';
 
 @WebSocketGateway({
   cors: {
@@ -23,6 +23,9 @@ export class ChatGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('ChatGateway');
 
+  // TODO: This is NOT a good way to manage rooms. At the very least update this to a DB table.
+  private roomUsers: RoomUser[] = [];
+
   @SubscribeMessage('sendMessage')
   handleMessage(
     @MessageBody() data: ChatMessageDTO,
@@ -34,19 +37,22 @@ export class ChatGateway
 
   @SubscribeMessage('changeRoom')
   changeRoom(
-    @MessageBody() data: JoinRoomDTO,
+    @MessageBody() data: ChangeRoomDTO,
     @ConnectedSocket() client: Socket,
   ): void {
     if (data.leave) {
       try {
         client.leave(data.leave);
 
-        const leaveMessage: RoomPayload = {
+        const leaveUser: RoomUser = {
           username: data.avatar,
-          userID: client.id,
+          clientID: client.id,
+          roomID: data.leave,
         };
 
-        this.server.to(data.leave).emit('roomLeave', leaveMessage);
+        this.server.to(data.leave).emit('roomLeave', leaveUser);
+
+        this.removeUserFromRoom(client.id);
       } catch (e) {
         this.logger.error(`Chat Leave Room: ${data.leave}`, e.stack);
         //client.emit('error', 'couldnt perform requested action');
@@ -57,12 +63,21 @@ export class ChatGateway
       try {
         client.join(data.join);
 
-        const joinMessage: RoomPayload = {
+        const joinUser: RoomUser = {
           username: data.avatar,
-          userID: client.id,
+          clientID: client.id,
+          roomID: data.join,
         };
 
-        this.server.to(data.join).emit('roomJoin', joinMessage);
+        this.addUserToRoom(joinUser);
+
+        const roomUsers = this.roomUsers.filter(
+          (user) => user.roomID === data.join,
+        );
+        this.server.to(data.join).emit('roomJoin', {
+          user: joinUser,
+          roomUsers: roomUsers,
+        });
       } catch (e) {
         this.logger.error(`Chat Join Room: ${data.join}`, e.stack);
         //client.emit('error', 'couldnt perform requested action');
@@ -75,12 +90,43 @@ export class ChatGateway
   }
 
   handleDisconnect(client: Socket) {
-    // TODO: Somehow inform the room this user left. Unreliable on the client side
-    //console.log(client.rooms);
+    //
+    const user: RoomUser = this.removeUserFromRoom(client.id);
+
+    if (user) {
+      this.server.to(user.roomID).emit('roomLeave', user);
+    }
+
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
   handleConnection(client: Socket, ...args: any[]) {
     this.logger.log(`Client connected: ${client.id}`);
+  }
+
+  private removeUserFromRoom(removeID: string): RoomUser {
+    let roomUser = null;
+
+    const userIndex: number = this.roomUsers.findIndex(
+      (user) => user.clientID === removeID,
+    );
+
+    if (userIndex > 0) {
+      roomUser = this.roomUsers[userIndex];
+      this.roomUsers.splice(userIndex);
+    }
+
+    return roomUser;
+  }
+
+  private addUserToRoom(addUser: RoomUser) {
+    const currentUser: RoomUser = this.roomUsers.find(
+      (user) =>
+        user.clientID === addUser.clientID && user.roomID === addUser.roomID,
+    );
+
+    if (!currentUser) {
+      this.roomUsers.push(addUser);
+    }
   }
 }
