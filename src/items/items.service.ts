@@ -1,26 +1,37 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/auth/user.entity';
+import { BuyItemDto } from './dto/buy-item.dto';
 import { CreateItemDto } from './dto/create-item.dto';
-import { UpdateItemDto } from './dto/update-item.dto';
+import { Item } from './entities/item.entity';
+import { ItemsRepository } from './items.repository';
+import { ShopRepository } from './shop.repository';
 
 @Injectable()
 export class ItemsService {
-  create(createItemDto: CreateItemDto) {
-    return 'This action adds a new item';
+  constructor(
+    @InjectRepository(ItemsRepository) private itemsRepository: ItemsRepository,
+    @InjectRepository(ShopRepository) private shopRepository: ShopRepository,
+  ) {}
+
+  async buy(buyItemDto: BuyItemDto, user: User) {
+    this.shopRepository.buy(buyItemDto, user);
+    return await this.shopRepository.buy(buyItemDto, user);
   }
 
-  findAll() {
-    return `This action returns all items`;
+  async createItem(createItemDto: CreateItemDto): Promise<Item> {
+    return await this.itemsRepository.createItem(createItemDto);
+  }
+
+  async findAll() {
+    return await this.itemsRepository.getItems();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} item`;
   }
 
-  update(id: number, updateItemDto: UpdateItemDto) {
-    return `This action updates a #${id} item`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} item`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} item`;
+  // }
 }

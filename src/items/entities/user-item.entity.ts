@@ -7,26 +7,13 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Item {
+export class UserItems {
   // Internally referenced ID
   @PrimaryGeneratedColumn()
-  id: number;
+  itemId: number;
 
   @Column()
-  emoji: string;
-
-  @Column()
-  name: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  tickets: number;
-
-  // @ManyToOne((_type) => User, (user) => user.jobs, { eager: false })
-  // @Exclude({ toPlainOnly: true })
-  // user: User;
+  userId: number;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
