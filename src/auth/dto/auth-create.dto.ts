@@ -17,7 +17,9 @@ export class AuthCreateDto {
   })
   username: string;
 
-  @IsEmail()
+  @IsEmail({
+    message: 'Email must be a valid email',
+  })
   email: string;
 
   @IsString()

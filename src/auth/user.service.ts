@@ -8,11 +8,11 @@ import { UpdateUserDto } from './dto/user-update-dto';
 import { User } from './user.entity';
 import { UsersRepository } from './users.repository';
 import * as bcrypt from 'bcrypt';
-import Hashids from 'hashids';
+//import Hashids from 'hashids';
 
 @Injectable()
 export class UserService {
-  private hashids = new Hashids('UnguessableSalt4evr');
+  //private hashids = new Hashids('UnguessableSalt4evr');
 
   constructor(
     @InjectRepository(UsersRepository) private usersRepository: UsersRepository,

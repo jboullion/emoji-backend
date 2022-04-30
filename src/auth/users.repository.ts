@@ -12,7 +12,7 @@ import { randomUUID } from 'crypto';
 import { title } from 'process';
 import { zip } from 'rxjs';
 import { UpdateUserDto } from './dto/user-update-dto';
-import Hashids from 'hashids';
+//import Hashids from 'hashids';
 
 enum UserRepoErrorCodes {
   EMAIL_EXISTS = '23505',
@@ -23,7 +23,7 @@ export class UsersRepository extends Repository<User> {
   private logger = new Logger('UsersRepository', { timestamp: true });
 
   async createUser(authCredentialsDto: AuthCreateDto): Promise<User> {
-    const hashids = new Hashids();
+    //const hashids = new Hashids();
 
     const { username, email, password } = authCredentialsDto;
 

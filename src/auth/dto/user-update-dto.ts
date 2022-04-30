@@ -14,7 +14,9 @@ export class UpdateUserDto {
   username?: string;
 
   @IsOptional()
-  @IsEmail()
+  @IsEmail({
+    message: 'Email must be a valid email test',
+  })
   email?: string;
 
   @IsString()
