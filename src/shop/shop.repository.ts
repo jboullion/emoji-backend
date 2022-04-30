@@ -3,7 +3,6 @@ import { User } from 'src/auth/user.entity';
 import { EntityRepository, Repository } from 'typeorm';
 
 import { BuyItemDto } from './dto/buy-item.dto';
-import { Item } from './entities/item.entity';
 import { UserItems } from './entities/user-item.entity';
 
 @EntityRepository(UserItems)

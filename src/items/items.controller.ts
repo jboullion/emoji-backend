@@ -1,18 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ItemsService } from './items.service';
-import { BuyItemDto } from './dto/buy-item.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { GetUser } from 'src/auth/get-user.decorator';
-import { User } from 'src/auth/user.entity';
 
 // TODO: Move this somewhere
 export interface IShopItem {
@@ -23,15 +10,10 @@ export interface IShopItem {
   tickets: number;
 }
 
-@Controller('shop-items')
+@Controller('items')
 //@UseGuards(AuthGuard())
 export class ItemsController {
   constructor(private readonly itemsService: ItemsService) {}
-
-  @Post()
-  buy(@Body() buyItemDto: BuyItemDto, @GetUser() user: User) {
-    return this.itemsService.buy(buyItemDto, user);
-  }
 
   @Get()
   findAll() {

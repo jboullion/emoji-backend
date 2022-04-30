@@ -10,6 +10,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { ChatModule } from './games/chat/chat.module';
 import { join } from 'path';
 import { ItemsModule } from './items/items.module';
+import { ShopModule } from './shop/shop.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { ItemsModule } from './items/items.module';
     }),
     AuthModule,
     ItemsModule,
+    ShopModule,
   ],
 })
 export class AppModule {}
