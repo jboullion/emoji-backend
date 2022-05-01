@@ -1,15 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ItemsService } from './items.service';
 
-// TODO: Move this somewhere
-export interface IShopItem {
-  id: number;
-  emoji: string;
-  name: string;
-  description: string;
-  tickets: number;
-}
-
 @Controller('items')
 //@UseGuards(AuthGuard())
 export class ItemsController {
@@ -27,6 +18,15 @@ export class ItemsController {
 
   // @Post()
   // generateStore() {
+  //   // TODO: Move this somewhere
+  // export interface IShopItem {
+  //   id: number;
+  //   emoji: string;
+  //   name: string;
+  //   description: string;
+  //   tickets: number;
+  // }
+
   //   const shopItems: IShopItem[] = [
   //     {
   //       id: 1,

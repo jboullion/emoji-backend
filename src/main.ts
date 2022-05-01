@@ -25,6 +25,7 @@ async function bootstrap() {
   app.enableCors();
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new TransformInterceptor());
+  app.setGlobalPrefix('v1');
 
   await app.listen(port);
   logger.log(`App listening on port ${port}`);

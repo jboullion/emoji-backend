@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, UseGuards } from '@nestjs/common';
 import { ShopService } from './shop.service';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/auth/get-user.decorator';
@@ -15,7 +6,7 @@ import { User } from 'src/auth/user.entity';
 import { BuyItemDto } from './dto/buy-item.dto';
 
 @Controller('shop')
-@UseGuards(AuthGuard())
+@UseGuards(AuthGuard('jwt'))
 export class ShopController {
   constructor(private readonly shopService: ShopService) {}
 
