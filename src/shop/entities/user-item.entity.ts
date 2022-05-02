@@ -3,10 +3,12 @@ import {
   CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
+@Unique(['itemId', 'userId'])
 export class UserItems {
   // Internally referenced ID
   @PrimaryGeneratedColumn()
