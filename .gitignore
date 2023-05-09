@@ -1,5 +1,5 @@
 # compiled output
-# /dist front end served from here
+/dist
 /node_modules
 
 # Logs
