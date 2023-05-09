@@ -1,0 +1,1 @@
+import{C as e}from"./CommonTitle.ae908bbc.js";import{d as o,o as t,c as a,g as r}from"./vendor.d86d1c24.js";import"./index.a680c4da.js";const c={id:"privacy",class:"page"},d=o({setup(s){return(i,n)=>(t(),a("div",c,[r(e,{title:"Privacy"})]))}});export{d as default};
