@@ -27,7 +27,7 @@ import { ShopModule } from './shop/shop.module';
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: async (configService: ConfigService) => {
-        const isProduction = configService.get('STAGE') === 'prod';
+        const isProduction = false; //configService.get('STAGE') === 'prod';
 
         return {
           ssl: isProduction,
