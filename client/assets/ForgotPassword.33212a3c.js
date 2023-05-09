@@ -1,0 +1,1 @@
+import{C as t}from"./CommonTitle.207c5bbe.js";import{d as s,o as r,c as a,g as c,a as e,f as o}from"./vendor.d86d1c24.js";import"./index.4d96d4fc.js";const n={id:"forgot",class:"page"},d=e("h2",{class:"text-center"},[o("TODO:"),e("br"),o("Don't forget your password!")],-1),g=s({setup(i){return(p,m)=>(r(),a("div",n,[c(t,{title:"Forgot Password"}),d]))}});export{g as default};

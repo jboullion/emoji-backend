@@ -1,0 +1,1 @@
+import{c as a}from"./index.4d96d4fc.js";import{d as o,o as r,c as e,y as n,t as i,u as c,F as u}from"./vendor.d86d1c24.js";const p={class:"alert alert-danger mb-4"},f=o({props:{errors:{type:Array,required:!0}},setup(t){return(l,m)=>(r(!0),e(u,null,n(t.errors,s=>(r(),e("div",p," \u26A0\uFE0F "+i(c(a)(s.toString())),1))),256))}});export{f as _};
